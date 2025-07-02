@@ -33,19 +33,21 @@ def move(grid, direction):
     if direction in ['w', 's']:
         for col in range(len(grid[0])):
             column = [grid[row][col] for row in range(len(grid))]
+            if direction == 's': column = column[::-1]
             column = move_row(column)
-            if direction == 's':
-                column = move_row(column)[::-1]
+            if direction == 's': column = column[::-1]
             for row in range(len(grid)):
                 grid[row][col] = column[row]
-    elif direction == 'a':
-        for row in range(len(grid)):
-            grid[row] = move_row(grid[row])
-    elif direction == 'd':
-        for row in range(len(grid)):
-            grid[row] = move_row(grid[row])[::-1]
+    elif direction in ['a', 'd']:
+        for i in range(len(grid)):
+            row = grid[i]
+            if direction == 'd': row = row[::-1]
+            row = move_row(row)
+            if direction == 'd': row = row[::-1]
+            grid[i] = row
     else:
         print('Invalid Move')
+
     return grid
 
 def display(grid):

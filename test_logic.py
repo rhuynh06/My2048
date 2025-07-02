@@ -37,16 +37,46 @@ class TestGameLogic(unittest.TestCase):
         grid = [
             [0, 2, 0, 2],
             [0, 0, 0, 0],
-            [2, 2, 0, 0],
-            [2, 2, 0, 2]
+            [2, 2, 0, 2],
+            [2, 2, 4, 4]
         ]
         expected = [
             [0, 0, 0, 4],
             [0, 0, 0, 0],
-            [0, 0, 0, 4],
-            [0, 0, 2, 4]
+            [0, 0, 2, 4], # NOT [0, 0, 4, 2]
+            [0, 0, 4, 8]
         ]
         self.assertEqual(move(deepcopy(grid), 'd'), expected)
+
+    def test_move_up(self):
+        grid = [
+            [0, 2, 0, 2],
+            [2, 0, 2, 0],
+            [0, 2, 0, 2],
+            [2, 0, 2, 0]
+        ]
+        expected = [
+            [4, 4, 4, 4],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]
+        self.assertEqual(move(deepcopy(grid), 'w'), expected)
+
+    def test_move_down(self):
+        grid = [
+            [0, 2, 0, 2],
+            [2, 0, 2, 0],
+            [0, 2, 0, 2],
+            [2, 0, 2, 0]
+        ]
+        expected = [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [4, 4, 4, 4]
+        ]
+        self.assertEqual(move(deepcopy(grid), 's'), expected)
 
     def test_init_grid(self):
         grid = init_grid(4, 4)
