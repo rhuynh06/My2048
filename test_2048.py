@@ -31,7 +31,7 @@ class TestGameLogic(unittest.TestCase):
             [4, 0, 0, 0],
             [4, 2, 0, 0]
         ])
-        result = move(deepcopy(grid), 'a')
+        result, _ = move(deepcopy(grid), 'a')
         np.testing.assert_array_equal(result, expected)
 
     def test_move_right(self):
@@ -44,10 +44,10 @@ class TestGameLogic(unittest.TestCase):
         expected = np.array([
             [0, 0, 0, 4],
             [0, 0, 0, 0],
-            [0, 0, 2, 4],  # Note this is the expected result per your comment
+            [0, 0, 2, 4],
             [0, 0, 4, 8]
         ])
-        result = move(deepcopy(grid), 'd')
+        result, _ = move(deepcopy(grid), 'd')
         np.testing.assert_array_equal(result, expected)
 
     def test_move_up(self):
@@ -63,7 +63,7 @@ class TestGameLogic(unittest.TestCase):
             [0, 0, 0, 0],
             [0, 0, 0, 0]
         ])
-        result = move(deepcopy(grid), 'w')
+        result, _ = move(deepcopy(grid), 'w')
         np.testing.assert_array_equal(result, expected)
 
     def test_move_down(self):
@@ -79,7 +79,7 @@ class TestGameLogic(unittest.TestCase):
             [0, 0, 0, 0],
             [4, 4, 4, 4]
         ])
-        result = move(deepcopy(grid), 's')
+        result, _ = move(deepcopy(grid), 's')
         np.testing.assert_array_equal(result, expected)
 
     def test_init_grid(self):
