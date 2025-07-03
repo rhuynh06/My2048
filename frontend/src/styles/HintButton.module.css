@@ -1,0 +1,25 @@
+.hintButton {
+  background-color: #ff9800;
+  color: white;
+  font-size: 1rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background-color 0.2s ease;
+  margin: 24px;
+}
+
+.hintButton:hover {
+  background-color: #fb8c00;
+}
+
+.hintButton:active {
+  background-color: #ef6c00;
+}
+
+.hintButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

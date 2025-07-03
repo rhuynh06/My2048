@@ -1,18 +1,30 @@
 // Current score + high score display
+import styles from "../styles/ScoreBoard.module.css";
+
 interface ScoreBoardProps {
-    score: number;
-    highScore: number;
-    moves?: number;
+  score: number;
+  highScore: number;
+  moves?: number;
 }
 
 const ScoreBoard: React.FC<ScoreBoardProps> = ({ score, highScore, moves }) => {
-    return (
-        <div style={{ marginBottom: "1rem" }}>
-            <div>Score: <strong>{score}</strong></div>
-            <div>High Score: <strong>{highScore}</strong></div>
-            {moves !== undefined && <div>Moves: {moves}</div>}
+  return (
+    <>
+      <div className={styles.scoreboard}>
+        <div className={styles.scoreItem}>
+          <div className={styles.label}>Score</div>
+          <div className={styles.value}>{score}</div>
         </div>
-    );
+        <div className={styles.scoreItem}>
+          <div className={styles.label}>Best</div>
+          <div className={styles.value}>{highScore}</div>
+        </div>
+      </div>
+      {moves !== undefined && (
+        <div className={styles.moves}>Moves: {moves}</div>
+      )}
+    </>
+  );
 };
 
 export default ScoreBoard;

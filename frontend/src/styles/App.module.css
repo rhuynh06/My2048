@@ -1,0 +1,82 @@
+/* Title styling (matches original 2048 look) */
+.title {
+  font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 4rem;
+  color: #776e65;
+  margin: 1rem 0 0.5rem;
+  user-select: none;
+  text-shadow: 1px 1px #f9f6f2;
+  letter-spacing: -1px;
+}
+
+/* Flex container for Settings + Updates */
+.topControls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* Shared button styles */
+.settingsButton,
+.updateButton {
+  width: 130px;
+  height: 42px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', 'Roboto', sans-serif;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+/* Unique styles for Settings button */
+.settingsButton {
+  background-color: #8f7a66;
+  color: #f9f6f2;
+}
+
+.settingsButton:hover {
+  background-color: #9f8b76;
+}
+
+/* Unique styles for Updates button */
+.updateButton {
+  background-color: #4b6587;
+  color: #f0f0f0;
+}
+
+.updateButton:hover {
+  background-color: #5b76a0;
+}
+
+/* Wrapper for dropdown */
+.updateDropdown {
+  position: relative;
+}
+
+/* Hidden by default */
+.updateList {
+  display: none;
+  position: absolute;
+  top: 115%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  background: #fcfcfc;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  text-align: left;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Show on hover */
+.updateDropdown:hover .updateList {
+  display: block;
+}

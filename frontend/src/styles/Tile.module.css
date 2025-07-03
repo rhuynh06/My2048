@@ -1,93 +1,37 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 70px);
+  grid-template-rows: repeat(4, 70px);
+  gap: 10px;
+  justify-content: center;
+  margin: 1rem 0;
+  background: #bbada0;
+  padding: 10px;
+  border-radius: 8px;
+}
+
 .tile {
+  background: #eee4da;
+  border-radius: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: 700;
-  font-size: 2rem;
-  border-radius: 5px;
+  font-size: 1.5rem;
+  color: #776e65;
   user-select: none;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.empty {
-  background-color: #cdc1b4;
-}
-
-.tile2 {
-  background-color: #eee4da;
-  color: #776e65;
-}
-
-.tile4 {
-  background-color: #ede0c8;
-  color: #776e65;
-}
-
-.tile8 {
-  background-color: #f2b179;
-  color: #f9f6f2;
-}
-
-.tile16 {
-  background-color: #f59563;
-  color: #f9f6f2;
-}
-
-.tile32 {
-  background-color: #f67c5f;
-  color: #f9f6f2;
-}
-
-.tile64 {
-  background-color: #f65e3b;
-  color: #f9f6f2;
-}
-
-.tile128 {
-  background-color: #edcf72;
-  color: #f9f6f2;
-  font-size: 1.5rem;
-}
-
-.tile256 {
-  background-color: #edcc61;
-  color: #f9f6f2;
-  font-size: 1.5rem;
-}
-
-.tile512 {
-  background-color: #edc850;
-  color: #f9f6f2;
-  font-size: 1.5rem;
-}
-
-.tile1024 {
-  background-color: #edc53f;
-  color: #f9f6f2;
-  font-size: 1.2rem;
-}
-
-.tile2048 {
-  background-color: #edc22e;
-  color: #f9f6f2;
-  font-size: 1.2rem;
-}
-
-.tileDefault {
-  background-color: #3c3a32;
-  color: #f9f6f2;
-}
-
-.hint {
-  box-shadow: 0 0 10px 5px #00ff00a0;
-  animation: pulse 1s infinite alternate;
-}
-
-@keyframes pulse {
-  from {
-    box-shadow: 0 0 10px 5px #00ff00a0;
-  }
-  to {
-    box-shadow: 0 0 20px 8px #00ff00ff;
-  }
-}
+/* Example colors for different tile values */
+.tile-2 { background: #eee4da; color: #776e65; }
+.tile-4 { background: #ede0c8; color: #776e65; }
+.tile-8 { background: #f2b179; color: #f9f6f2; }
+.tile-16 { background: #f59563; color: #f9f6f2; }
+.tile-32 { background: #f67c5f; color: #f9f6f2; }
+.tile-64 { background: #f65e3b; color: #f9f6f2; }
+.tile-128 { background: #edcf72; color: #f9f6f2; }
+.tile-256 { background: #edcc61; color: #f9f6f2; }
+.tile-512 { background: #edc850; color: #f9f6f2; }
+.tile-1024 { background: #edc53f; color: #f9f6f2; }
+.tile-2048 { background: #edc22e; color: #f9f6f2; }

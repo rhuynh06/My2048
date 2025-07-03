@@ -12,6 +12,9 @@ import Modal from "./components/Modal";
 import SettingsPanel from "./components/SettingsPanel";
 import UpdateList from "./components/UpdatesList";
 
+import "./App.css"
+import styles from "./styles/App.module.css";
+
 function App() {
   const {
     grid,
@@ -40,8 +43,6 @@ function App() {
     }));
   };
 
-
-
   useEffect(() => {
     if (gameOver) alert("Game Over!");
   }, [gameOver]);
@@ -52,10 +53,22 @@ function App() {
 
   return (
     <div style={{ maxWidth: 480, margin: "auto", textAlign: "center" }}>
-      <h1>2048</h1>
+      <h1 className={styles.title}>2048</h1>
 
-      <div style={{ marginTop: 10 }}>
-        <button onClick={() => setShowSettings(true)}>⚙️ Settings</button>
+      <div className={styles.topControls}>
+        <button
+          className={styles.settingsButton}
+          onClick={() => setShowSettings(true)}
+        >
+          ⚙️ Settings
+        </button>
+
+        <div className={styles.updateDropdown}>
+          <button className={styles.updateButton}>📝 Updates</button>
+          <div className={styles.updateList}>
+            <UpdateList />
+          </div>
+        </div>
       </div>
 
       <Modal show={showSettings} onClose={() => setShowSettings(false)} title="Settings">
@@ -73,15 +86,15 @@ function App() {
       
       <GameBoard grid={grid} hint={hint} />
 
-      <GameControls onRestart={restart} onUndo={undo} undoDisabled={gameOver} />
+      <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
+        <GameControls onRestart={restart} onUndo={undo} undoDisabled={gameOver} />
 
-      <HintButton
-        onHint={handleHintClick}
-        disabled={difficulty !== "normal"}
-        loading={aiLoading}
-      />
-
-      <UpdateList/>
+        <HintButton
+          onHint={handleHintClick}
+          disabled={difficulty !== "normal"}
+          loading={aiLoading}
+        />
+      </div>
     </div>
   );
 }

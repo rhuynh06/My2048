@@ -1,0 +1,41 @@
+.scoreboard {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.scoreItem {
+  background: #f3f1e7;
+  border-radius: 10px;
+  min-width: 120px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;
+  user-select: none;
+  font-family: 'Inter', 'Roboto', sans-serif;
+}
+
+.label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #7c6f5a;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #3c2f21;
+}
+
+.moves {
+  text-align: center;
+  font-family: 'Inter', 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: #5a5448;
+  margin: 0.5rem;
+  user-select: none;
+}

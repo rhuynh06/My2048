@@ -2,15 +2,12 @@
 import styles from "../styles/UpdateList.module.css";
 
 const updates = [
-  "toggle numbers (default)",
   "toggle solo leveling",
   "toggle reincarnated as a slime",
   "toggle soccer players",
   "toggle programming tools & languages",
   "more skins...",
   "difficulties (easy, med, hard, normal)",
-  "restart option",
-  "keep highest score via local db",
   {
     title: "Mods",
     items: [
@@ -21,7 +18,7 @@ const updates = [
       "Delete",
       "Frozen Tile",
       "Tile w/ multiple values",
-      "Swap 2 Tiles?",
+      "Swap 2 Tiles",
     ],
   },
 ];
