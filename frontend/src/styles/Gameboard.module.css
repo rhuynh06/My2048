@@ -1,0 +1,10 @@
+.gameBoard {
+  display: grid;
+  gap: 10px;
+  background-color: #bbada0;
+  padding: 15px;
+  border-radius: 10px;
+  aspect-ratio: 1 / 1;
+  max-width: 400px;
+  margin: auto;
+}

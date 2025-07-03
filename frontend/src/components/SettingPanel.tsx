@@ -1,1 +1,0 @@
-// Toggles for skins, AI, mods, difficulty

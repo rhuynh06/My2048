@@ -1,0 +1,93 @@
+.tile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 2rem;
+  border-radius: 5px;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.empty {
+  background-color: #cdc1b4;
+}
+
+.tile2 {
+  background-color: #eee4da;
+  color: #776e65;
+}
+
+.tile4 {
+  background-color: #ede0c8;
+  color: #776e65;
+}
+
+.tile8 {
+  background-color: #f2b179;
+  color: #f9f6f2;
+}
+
+.tile16 {
+  background-color: #f59563;
+  color: #f9f6f2;
+}
+
+.tile32 {
+  background-color: #f67c5f;
+  color: #f9f6f2;
+}
+
+.tile64 {
+  background-color: #f65e3b;
+  color: #f9f6f2;
+}
+
+.tile128 {
+  background-color: #edcf72;
+  color: #f9f6f2;
+  font-size: 1.5rem;
+}
+
+.tile256 {
+  background-color: #edcc61;
+  color: #f9f6f2;
+  font-size: 1.5rem;
+}
+
+.tile512 {
+  background-color: #edc850;
+  color: #f9f6f2;
+  font-size: 1.5rem;
+}
+
+.tile1024 {
+  background-color: #edc53f;
+  color: #f9f6f2;
+  font-size: 1.2rem;
+}
+
+.tile2048 {
+  background-color: #edc22e;
+  color: #f9f6f2;
+  font-size: 1.2rem;
+}
+
+.tileDefault {
+  background-color: #3c3a32;
+  color: #f9f6f2;
+}
+
+.hint {
+  box-shadow: 0 0 10px 5px #00ff00a0;
+  animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+  from {
+    box-shadow: 0 0 10px 5px #00ff00a0;
+  }
+  to {
+    box-shadow: 0 0 20px 8px #00ff00ff;
+  }
+}

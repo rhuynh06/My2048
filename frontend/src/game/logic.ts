@@ -1,8 +1,8 @@
 // Pure game logic functions (move, merge, spawn)
 import { moveRow } from "../utils/helpers";
 
-type Direction = 'up' | 'down' | 'left' | 'right';
-type Grid = number[][];
+export type Direction = 'up' | 'down' | 'left' | 'right';
+export type Grid = number[][];
 
 export function initGrid(n = 4): Grid {
     // Empty grid of size n x n (square)
@@ -40,7 +40,7 @@ export function addRandomTile(grid: Grid): Grid {
     return newGrid;
 }
 
-export function move(grid: Grid, direction: Direction): { newGrid: Grid, newScore: number, moved: boolean} {
+export function moveGrid(grid: Grid, direction: Direction): { newGrid: Grid, scoreGained: number, moved: boolean} {
     const size = grid.length;
     let moved = false;
     let totalScore = 0;
@@ -88,7 +88,7 @@ export function move(grid: Grid, direction: Direction): { newGrid: Grid, newScor
         setLine(i, newRow);
     }
 
-    return { newGrid, newScore: totalScore, moved };
+    return { newGrid, scoreGained: totalScore, moved };
 }
 
 export function isGameOver(grid: Grid): boolean {
