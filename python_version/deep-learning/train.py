@@ -14,7 +14,7 @@ if os.path.exists("model.pth"):
 else:
     print("No saved model found, training from scratch.")
 
-episodes = 1000
+episodes = 1000 # incerase for better results!
 scores = []
 
 for ep in range(episodes):
