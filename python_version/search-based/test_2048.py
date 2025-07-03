@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 from copy import deepcopy
-from python_version.logic import init_grid, add_new, compress, combine, move_row, move, is_game_over
+from logic import init_grid, add_new, compress, combine, move_row, move, is_game_over
 
 class TestGameLogic(unittest.TestCase):
 

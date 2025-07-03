@@ -1,5 +1,5 @@
 import numpy as np
-from python_version.logic import move, init_grid, add_new, is_game_over, display
+from logic import move, init_grid, add_new, is_game_over, display
 import time
 
 # ---------- AI logic functions ----------

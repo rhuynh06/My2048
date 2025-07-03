@@ -4,8 +4,8 @@ import numpy as np
 import threading
 import time
 
-from python_version.logic import init_grid, move, add_new, is_game_over
-from python_version.ai import get_best_move, max_tile
+from logic import init_grid, move, add_new, is_game_over
+from ai import get_best_move, max_tile
 
 class Game2048UI:
     COLORS = {
