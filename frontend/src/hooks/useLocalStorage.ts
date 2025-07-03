@@ -1,0 +1,1 @@
+// Hook to sync state with localStorage (scores, settings)

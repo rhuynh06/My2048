@@ -1,35 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// import GameBoard from './components/GameBoard';
+// import ScoreBoard from './components/ScoreBoard';
+// import GameControls from './components/GameControls';
+// import SettingsPanel from './components/SettingsPanel';
+// import { useGameState } from './hooks/useGameState';
+import UpdateList from './components/UpdatesList';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+  // // Custom hook to manage game state & logic
+  // const {
+  //   grid,
+  //   score,
+  //   highScore,
+  //   difficulty,
+  //   mode,
+  //   move,
+  //   restart,
+  //   undo,
+  //   setDifficulty,
+  //   toggleMode,
+  //   // add other handlers as needed
+  // } = useGameState();
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="app-container" style={{ maxWidth: 500, margin: 'auto', padding: 20 }}>
+      <h1>2048 React</h1>
 
-export default App
+      {/* <ScoreBoard score={score} highScore={highScore} />
+
+      <GameBoard grid={grid} />
+
+      <GameControls
+        onRestart={restart}
+        onUndo={undo}
+        difficulty={difficulty}
+        onDifficultyChange={setDifficulty}
+        mode={mode}
+        onModeToggle={toggleMode}
+        // Add handlers for AI hints, autoplay toggles later
+      />
+
+      <SettingsPanel
+        difficulty={difficulty}
+        mode={mode}
+        // pass other props and callbacks as needed for toggles
+      /> */}
+
+      <UpdateList/>
+    </div>
+  );
+};
+
+export default App;

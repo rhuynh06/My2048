@@ -1,0 +1,1 @@
+// localStorage helpers if not using hooks

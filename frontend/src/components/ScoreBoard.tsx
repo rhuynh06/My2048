@@ -1,0 +1,1 @@
+// Current score + high score display

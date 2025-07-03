@@ -1,0 +1,1 @@
+// Button that triggers AI hint

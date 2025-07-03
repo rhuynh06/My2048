@@ -1,0 +1,1 @@
+// Hook for AI integration (calling backend, processing hints)
