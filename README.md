@@ -1,6 +1,6 @@
-# 2048++
+# My2048
 
-2048++ is a full-stack, AI-enhanced version of the classic 2048 game. Built with React and FastAPI, this reimagined version includes intelligent hinting and auto-play, difficulty modes, custom tile skins, and mod-ready architecture. It's more than a puzzle game—it's a platform for experimenting with strategy, design, and smart automation. It is a personal project created to deepen my understanding of AI techniques, including search-based algorithms and deep learning training.
+My2048 is a full-stack, AI-enhanced version of the classic 2048 game. Built with React and FastAPI, this reimagined version includes intelligent hinting and auto-play, difficulty modes, custom tile skins, and mod-ready architecture. It's more than a puzzle game—it's a platform for experimenting with strategy, design, and smart automation. It is a personal project created to deepen my understanding of AI techniques, including search-based algorithms and deep learning training.
 
 ---
 
