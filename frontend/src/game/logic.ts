@@ -105,15 +105,12 @@ export function isGameOver(grid: Grid): boolean {
     for (let i = 0; i < size; i++) {
         for (let j = 0; j < size; j++) {
             // Horizontally
-            if (grid[i][j] === grid[i][j + 1]) return false;
-        }
-    }
-    for (let j = 0; j < size; j++) {
-        for (let i = 0; i < size; i++) {
+            if (j < size - 1 && grid[i][j] === grid[i][j + 1]) return false;
             // Vertically
-            if (grid[i][j] === grid[i + 1][j]) return false;
+            if (i < size - 1 && grid[i][j] === grid[i + 1][j]) return false;
         }
-    }
+}
+
 
     return true;
 }

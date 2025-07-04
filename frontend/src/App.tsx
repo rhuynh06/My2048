@@ -63,6 +63,7 @@ function App() {
     <div style={{ maxWidth: 480, margin: "auto", textAlign: "center" }}>
       <h1 className={styles.title}>2048</h1>
 
+      {/* SETTINGS PANEL */}
       <div className={styles.topControls}>
         <button
           className={styles.settingsButton}
@@ -70,7 +71,6 @@ function App() {
         >
           ⚙️ Settings
         </button>
-
         <div className={styles.updateDropdown}>
           <button className={styles.updateButton}>📝 Updates</button>
           <div className={styles.updateList}>
@@ -128,6 +128,8 @@ function App() {
           disabled={difficulty !== "normal"}
           loading={aiLoading}
         />
+
+        {/* ADD TOOGLE AI IF MODE = REG */}
       </div>
     </div>
   );
