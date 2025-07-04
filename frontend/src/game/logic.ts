@@ -1,5 +1,5 @@
 // Pure game logic functions (move, merge, spawn)
-import { moveRow } from "../utils/helpers";
+import { moveRow, gridsEqual } from "../utils/helpers";
 
 export type Direction = 'up' | 'down' | 'left' | 'right';
 export type Grid = number[][];
@@ -40,15 +40,14 @@ export function addRandomTile(grid: Grid): Grid {
     return newGrid;
 }
 
-export function moveGrid(grid: Grid, direction: Direction): { newGrid: Grid, scoreGained: number, moved: boolean} {
+export function moveGrid(grid: Grid, direction: Direction): { newGrid: Grid, scoreGained: number, moved: boolean } {
     const size = grid.length;
-    let moved = false;
     let totalScore = 0;
 
     // Clone grid so we don't mutate original
     const newGrid: Grid = grid.map(row => [...row]);
 
-    // Helper to get/set rows or columns depending on direction
+    // Helper to get rows or columns depending on direction
     function getLine(index: number): number[] {
         if (direction === 'left' || direction === 'right') { // rows
             return [...newGrid[index]];
@@ -59,6 +58,7 @@ export function moveGrid(grid: Grid, direction: Direction): { newGrid: Grid, sco
         }
     }
 
+    // Helper to set rows or columns depending on direction
     function setLine(index: number, line: number[]) {
         if (direction === 'left' || direction === 'right') {
             newGrid[index] = [...line];
@@ -77,10 +77,6 @@ export function moveGrid(grid: Grid, direction: Direction): { newGrid: Grid, sco
         const { newRow, score } = moveRow(line);
         totalScore += score;
 
-        if (!moved && newRow.some((val, idx) => val !== line[idx])) {
-            moved = true;
-        }
-
         if (direction === 'right' || direction === 'down') {
             newRow.reverse();
         }
@@ -88,6 +84,7 @@ export function moveGrid(grid: Grid, direction: Direction): { newGrid: Grid, sco
         setLine(i, newRow);
     }
 
+    const moved = !gridsEqual(grid, newGrid);
     return { newGrid, scoreGained: totalScore, moved };
 }
 

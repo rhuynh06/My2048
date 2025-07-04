@@ -1,4 +1,5 @@
 // Small helper functions
+import type { Grid, Direction } from "../game/logic";
 
 // Shifts non-zero elements LEFT
 function compress(row: number[]): number[] {
@@ -30,3 +31,31 @@ export function moveRow(row: number[]): { newRow: number[], score: number } {
     const finalRow = compress(combined.newRow);
     return { newRow: finalRow, score: combined.score };
 }
+
+// Compares 2 grids
+export function gridsEqual(g1: Grid, g2: Grid): boolean {
+  for (let i = 0; i < g1.length; i++) {
+    for (let j = 0; j < g1.length; j++) {
+      if (g1[i][j] !== g2[i][j]) return false;
+    }
+  }
+  return true;
+}
+
+// letters to Direction
+export function convert(moveLetter: string | null ): Direction | null {
+  switch(moveLetter) {
+    case 'a':
+      return 'left';
+    case 'w':
+      return 'up';
+    case 's':
+      return 'down';
+    case 'd':
+      return 'right';
+    default:
+      console.warn("Unknown move letter:", moveLetter);
+      return null;
+  }
+}
+

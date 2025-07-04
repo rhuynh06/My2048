@@ -38,20 +38,15 @@ export function useGameState(): UserGameState {
 
   const move = (dir: Direction) => {
     if (gameOver) {
-      console.log("Blocked: game is over");
+      // console.log("Blocked: game is over");
       return;
     }
 
-    const { newGrid, moved, scoreGained } = moveGrid(grid, dir);
+    const { newGrid, scoreGained, moved } = moveGrid(grid, dir);
+
     if (!moved) {
-      console.log("Blocked: move did not change grid");
+      // console.log("Move didn't change grid, ignoring");
       return;
-    }
-
-    // Check max tile to trigger win
-    const maxTile = getMaxTile(newGrid);
-    if (!hasWon && maxTile >= 2048) {
-      setHasWon(true);
     }
 
     const gridAfterNew = addRandomTile(newGrid);
@@ -62,19 +57,18 @@ export function useGameState(): UserGameState {
     setScore(newScore);
     setMoves((prev) => prev + 1);
 
-    // Check game over after move
-    if (isGameOver(gridAfterNew)) {
-      setGameOver(true);
-    }
+    if (isGameOver(gridAfterNew)) setGameOver(true);
 
-    // Update high score if needed
     if (newScore > highScore) {
       setHighScore(newScore);
       localStorage.setItem("highscore", String(newScore));
     }
 
-    console.log("Moving in direction:", dir); // debug
-    console.table(grid);
+    // Check win condition
+    const maxTile = getMaxTile(gridAfterNew);
+    if (!hasWon && maxTile >= 2048) {
+      setHasWon(true);
+    }
   };
 
   const restart = () => {

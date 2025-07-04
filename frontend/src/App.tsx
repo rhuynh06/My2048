@@ -16,7 +16,7 @@ import UpdateList from "./components/UpdatesList";
 
 import "./App.css";
 import styles from "./styles/App.module.css";
-import header from "../public/header.png";
+import header from "/header.png";
 
 function App() {
   const {
@@ -45,6 +45,7 @@ function App() {
   const [autoplay, setAutoplay] = useState(false);
   const autoplayRef = useRef<number | null>(null);
 
+  // Player move
   useKeyboard(move);
 
   // Mods (TO BE ADDED)
@@ -94,14 +95,13 @@ function App() {
     if (autoplay && !gameOver) {
       autoplayRef.current = setInterval(async () => {
         const nextMove = await getAutoMove(grid);
-        console.log("AI autoplay move:", nextMove); // debug
         if (nextMove) {
           move(nextMove);
         } else {
           setAutoplay(false);
           if (autoplayRef.current) clearInterval(autoplayRef.current);
         }
-      }, 100);
+      }, 100); // to increase speed (min: 10)
     } else {
       if (autoplayRef.current) {
         clearInterval(autoplayRef.current);
@@ -175,9 +175,9 @@ function App() {
         onClose={restart}
         title="Game Over"
       >
-        <p>No more moves available. Try again?</p>
+        <p>No more moves available.</p>
         <div style={{ marginTop: 20 }}>
-          <button onClick={restart}>Restart</button>
+          <button onClick={restart}>Try again</button>
         </div>
       </Modal>
 
@@ -193,7 +193,11 @@ function App() {
       </div>
 
       <div style={{ display: "flex", justifyContent: "center", marginTop: 10 }}>
-        <GameControls onRestart={restart} onUndo={undo} undoDisabled={gameOver} />
+        <GameControls
+          onRestart={restart}
+          onUndo={undo}
+          undoDisabled={gameOver}
+        />
 
         <HintButton
           onHint={handleHintClick}

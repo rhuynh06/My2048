@@ -1,7 +1,7 @@
 // Functions to call backend AI API
-import type { Grid, Direction } from "../game/logic";
+import type { Grid } from "../game/logic";
 
-export async function getBestMoveFromAI(grid: Grid): Promise<Direction | null> {
+export async function getBestMoveFromAI(grid: Grid): Promise<string | null> {
   const response = await fetch("http://localhost:5050/hint", {
     method: "POST",
     headers: {
@@ -15,5 +15,5 @@ export async function getBestMoveFromAI(grid: Grid): Promise<Direction | null> {
   }
 
   const data = await response.json();
-  return data.move as Direction;
+  return data.move;
 }

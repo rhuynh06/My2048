@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Grid, Direction } from "../game/logic";
+import { convert } from "../utils/helpers";
 import { getBestMoveFromAI } from "../utils/api";
 
 export function useAI() {
@@ -10,7 +11,7 @@ export function useAI() {
     setLoading(true);
     try {
       const move = await getBestMoveFromAI(grid);
-      setHint(move);
+      setHint(convert(move));
     } catch (err) {
       console.error("AI Failed", err);
     } finally {
@@ -21,7 +22,7 @@ export function useAI() {
   const getAutoMove = async (grid: Grid): Promise<Direction | null> => {
     try {
       const move = await getBestMoveFromAI(grid);
-      return move || null;
+      return convert(move) || null;
     } catch (err) {
       console.error("AI Autoplay Failed", err);
       return null;

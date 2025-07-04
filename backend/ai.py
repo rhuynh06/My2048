@@ -84,16 +84,20 @@ def expectimax(grid, depth, is_player_turn):
             max_score = max(max_score, score)
         return max_score if max_score != float('-inf') else heuristic(grid)
     else:
-        empty_cells = [(r, c) for r in range(4) for c in range(4) if grid[r, c] == 0]
+        rows, cols = grid.shape
+        empty_cells = [(r, c) for r in range(rows) for c in range(cols) if grid[r, c] == 0]
         if not empty_cells:
             return heuristic(grid)
+        
         total = 0
-        for r, c in empty_cells[:6]:  # limit branching
+        sampled_cells = empty_cells if len(empty_cells) <= 6 else empty_cells[:6]
+
+        for r, c in sampled_cells:
             for value, prob in [(2, 0.9), (4, 0.1)]:
                 new_grid = grid.copy()
                 new_grid[r, c] = value
                 total += prob * expectimax(new_grid, depth - 1, True)
-        return total / len(empty_cells)
+        return total / len(sampled_cells)
 
 def get_best_move(grid):
     best_move = None

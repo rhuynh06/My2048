@@ -13,7 +13,7 @@ const GameControls: React.FC<GameControlProps> = ({
   undoDisabled,
 }) => {
   return (
-    <div className={styles.controls}>
+    <div style={{ display: "flex", flexWrap: "wrap" }}>
       <button 
         className={`${styles.buttonBase}
         ${styles.primary}`}
