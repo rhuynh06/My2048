@@ -4,14 +4,11 @@ import { moveRow, gridsEqual } from "../utils/helpers";
 export type Direction = 'up' | 'down' | 'left' | 'right';
 export type Grid = number[][];
 
-export function initGrid(n = 4): Grid {
-    // Empty grid of size n x n (square)
-    const grid: Grid = Array.from({ length: n }, () => Array(n).fill(0))
-
-    // Add 2 random tiles
-    let newGrid = addRandomTile(grid);
-    newGrid = addRandomTile(newGrid);
-    return newGrid;
+export function initGrid(rows: number = 4, cols: number = 4): Grid {
+  const grid = Array.from({ length: rows }, () =>
+    Array.from({ length: cols }, () => 0) // empty row x col
+  );
+  return addRandomTile(addRandomTile(grid)); // add 2 random tiles
 }
 
 export function addRandomTile(grid: Grid): Grid {

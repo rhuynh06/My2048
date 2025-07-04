@@ -4,6 +4,12 @@ import { initGrid, moveGrid, addRandomTile, isGameOver, getMaxTile } from "../ga
 import type { Direction, Grid } from "../game/logic";
 
 const MAX_UNDO = 10;
+export type Difficulty = "easy" | "medium" | "hard";
+const difficultySizes: Record<Difficulty, number> = {
+  easy: 5,
+  medium: 4,
+  hard: 3,
+};
 
 interface UserGameState {
   grid: Grid;
@@ -13,18 +19,21 @@ interface UserGameState {
   history: Grid[];
   gameOver: boolean;
   hasWon: boolean;
-  difficulty: string;
+  difficulty: Difficulty;
   move: (dir: Direction) => void;
   restart: () => void;
   undo: () => void;
-  setDifficulty: (mode: string) => void;
+  setDifficulty: (mode: Difficulty) => void;
   continueGame: () => void;
   shouldShowWinModal: boolean;
   shouldShowGameOverModal: boolean;
 }
 
 export function useGameState(): UserGameState {
-  const [grid, setGrid] = useState(initGrid());
+  const [difficulty, setDifficultyState] = useState<Difficulty>("medium");
+  const [grid, setGrid] = useState(() =>
+    initGrid(difficultySizes["medium"], difficultySizes["medium"])
+  );
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(
     Number(localStorage.getItem("highscore") || "0")
@@ -34,20 +43,13 @@ export function useGameState(): UserGameState {
   const [gameOver, setGameOver] = useState(false);
   const [hasWon, setHasWon] = useState(false);
   const [continuedAfterWin, setContinuedAfterWin] = useState(false);
-  const [difficulty, setDifficultyState] = useState("normal");
 
   const move = (dir: Direction) => {
-    if (gameOver) {
-      // console.log("Blocked: game is over");
-      return;
-    }
+    if (gameOver || (hasWon && !continuedAfterWin)) return;
 
     const { newGrid, scoreGained, moved } = moveGrid(grid, dir);
 
-    if (!moved) {
-      // console.log("Move didn't change grid, ignoring");
-      return;
-    }
+    if (!moved) return;
 
     const gridAfterNew = addRandomTile(newGrid);
     const newScore = score + scoreGained;
@@ -64,7 +66,6 @@ export function useGameState(): UserGameState {
       localStorage.setItem("highscore", String(newScore));
     }
 
-    // Check win condition
     const maxTile = getMaxTile(gridAfterNew);
     if (!hasWon && maxTile >= 2048) {
       setHasWon(true);
@@ -72,7 +73,8 @@ export function useGameState(): UserGameState {
   };
 
   const restart = () => {
-    setGrid(initGrid());
+    const size = difficultySizes[difficulty];
+    setGrid(initGrid(size, size));
     setScore(0);
     setMoves(0);
     setHistory([]);
@@ -89,9 +91,16 @@ export function useGameState(): UserGameState {
     setGameOver(false);
   };
 
-  const setDifficulty = (mode: string) => {
+  const setDifficulty = (mode: Difficulty) => {
     setDifficultyState(mode);
-    restart();
+    const size = difficultySizes[mode];
+    setGrid(initGrid(size, size));
+    setScore(0);
+    setMoves(0);
+    setHistory([]);
+    setGameOver(false);
+    setHasWon(false);
+    setContinuedAfterWin(false);
   };
 
   const continueGame = () => {

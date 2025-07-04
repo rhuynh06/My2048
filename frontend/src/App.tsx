@@ -148,7 +148,10 @@ function App() {
       <Modal show={showSettings} onClose={() => setShowSettings(false)} title="Settings">
         <SettingsPanel
           difficulty={difficulty}
-          onDifficultyChange={setDifficulty}
+          onDifficultyChange={(mode) => {
+            setDifficulty(mode);
+            setShowSettings(false);
+          }}
           skinMode={skinMode}
           onSkinChange={setSkinMode}
           mods={mods}
@@ -201,14 +204,14 @@ function App() {
 
         <HintButton
           onHint={handleHintClick}
-          disabled={difficulty !== "normal"}
+          // disabled={difficulty !== "medium"}
           loading={loading}
         />
 
         <AutoplayToggle
           autoplay={autoplay}
           onToggle={toggleAutoplay}
-          disabled={difficulty !== "normal"}
+          // disabled={difficulty !== "medium"}
         />
       </div>
     </div>

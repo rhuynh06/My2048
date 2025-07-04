@@ -1,9 +1,10 @@
 // Toggles for skins, AI, mods, difficulty
+import type { Difficulty } from "../hooks/useGameState";
 import styles from "../styles/SettingPanels.module.css";
 
 interface SettingsPanelProps {
   difficulty: string;
-  onDifficultyChange: (val: string) => void;
+  onDifficultyChange: (value : Difficulty) => void;
   skinMode: string;
   onSkinChange: (val: string) => void;
   mods: Record<string, boolean>;
@@ -105,7 +106,7 @@ const skinLegendMap: Record<string, (string | number)[]> = {
   ],
 };
 
-const difficulties = ["easy", "medium", "hard", "normal"];
+const difficulties = ["easy", "medium", "hard"];
 const modList = ["bomb", "combo", "chain", "delete", "frozen", "quantum"];
 const skinOptions = [
   {
@@ -162,7 +163,10 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
     <div>
       <div>
         <label>Difficulty: </label>
-        <select value={difficulty} onChange={(e) => onDifficultyChange(e.target.value)}>
+        <select
+          value={difficulty}
+          onChange={(e) => onDifficultyChange(e.target.value as Difficulty)}
+        >
           {difficulties.map((d) => (
             <option key={d} value={d}>
               {d}

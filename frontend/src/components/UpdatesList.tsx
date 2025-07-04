@@ -2,7 +2,6 @@
 import styles from "../styles/UpdateList.module.css";
 
 const updates = [
-  "difficulties (easy, med, hard, normal)",
   {
     title: "Mods",
     items: [
