@@ -1,91 +1,116 @@
 // Custom hook managing game state + undo stack
 import { useState } from "react";
-import { initGrid, moveGrid, addRandomTile, isGameOver } from "../game/logic";
+import { initGrid, moveGrid, addRandomTile, isGameOver, getMaxTile } from "../game/logic";
 import type { Direction, Grid } from "../game/logic";
-
-interface UserGameState {
-    grid: Grid;
-    score: number;
-    highScore: number;
-    moves: number;
-    history: Grid[];
-    gameOver: boolean;
-    difficulty: string;
-    move: (dir: Direction) => void;
-    restart: () => void;
-    undo: () => void;
-    setDifficulty: (mode: string) => void;
-}
 
 const MAX_UNDO = 10;
 
+interface UserGameState {
+  grid: Grid;
+  score: number;
+  highScore: number;
+  moves: number;
+  history: Grid[];
+  gameOver: boolean;
+  hasWon: boolean;
+  difficulty: string;
+  move: (dir: Direction) => void;
+  restart: () => void;
+  undo: () => void;
+  setDifficulty: (mode: string) => void;
+  continueGame: () => void;
+  shouldShowWinModal: boolean;
+  shouldShowGameOverModal: boolean;
+}
+
 export function useGameState(): UserGameState {
-    const [grid, setGrid] = useState(initGrid());
-    const [score, setScore] = useState(0);
-    const [highScore, setHighScore] = useState(
-        Number(localStorage.getItem("highscore") || "0")
-    );
-    const [moves, setMoves] = useState(0);
-    const [history, setHistory] = useState<Grid[]>([])
-    const [gameOver, setGameOver] = useState(false);
-    const [difficulty, setDifficultyState] = useState("normal");
+  const [grid, setGrid] = useState(initGrid());
+  const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(
+    Number(localStorage.getItem("highscore") || "0")
+  );
+  const [moves, setMoves] = useState(0);
+  const [history, setHistory] = useState<Grid[]>([]);
+  const [gameOver, setGameOver] = useState(false);
+  const [hasWon, setHasWon] = useState(false);
+  const [continuedAfterWin, setContinuedAfterWin] = useState(false);
+  const [difficulty, setDifficultyState] = useState("normal");
 
-    const move = (dir: Direction) => {
-        // game over?
-        if (gameOver) return;
+  const move = (dir: Direction) => {
+    if (gameOver) return;
 
-        // no changes?
-        const { newGrid, moved, scoreGained } = moveGrid(grid, dir);
-        if (!moved) return;
+    const { newGrid, moved, scoreGained } = moveGrid(grid, dir);
+    if (!moved) return;
 
-        // move
-        const gridAfterNew = addRandomTile(newGrid);
-        const newScore = score + scoreGained;
+    const gridAfterNew = addRandomTile(newGrid);
+    const newScore = score + scoreGained;
 
-        setHistory(prev => [grid, ...prev.slice(0, MAX_UNDO - 1)]);
-        setGrid(gridAfterNew);
-        setScore(newScore);
-        setMoves(prev => prev + 1);
-        setGameOver(isGameOver(gridAfterNew))
+    setHistory((prev) => [grid, ...prev.slice(0, MAX_UNDO - 1)]);
+    setGrid(gridAfterNew);
+    setScore(newScore);
+    setMoves((prev) => prev + 1);
 
-        // new high score?
-        if (newScore > highScore) {
-            setHighScore(newScore);
-            localStorage.setItem("highscore", String(newScore));
-        }
-    };
+    // Check max tile to trigger win
+    const maxTile = getMaxTile(gridAfterNew);
+    if (!hasWon && maxTile >= 2048) {
+      setHasWon(true);
+    }
 
-    const restart = () => {
-        setGrid(initGrid());
-        setScore(0);
-        setMoves(0);
-        setHistory([]);
-        setGameOver(false);
-    };
+    // Check game over after move
+    if (isGameOver(gridAfterNew)) {
+      setGameOver(true);
+    }
 
-    const undo = () => {
-        if (history.length == 0) return;
-        const [prev, ...rest] = history;
-        setGrid(prev);
-        setHistory(rest);
-    };
+    // Update high score if needed
+    if (newScore > highScore) {
+      setHighScore(newScore);
+      localStorage.setItem("highscore", String(newScore));
+    }
+  };
 
-    const setDifficulty = (mode: string) => {
-        setDifficultyState(mode);
-        restart();
-    };
+  const restart = () => {
+    setGrid(initGrid());
+    setScore(0);
+    setMoves(0);
+    setHistory([]);
+    setGameOver(false);
+    setHasWon(false);
+    setContinuedAfterWin(false);
+  };
 
-    return {
-        grid,
-        score,
-        highScore,
-        moves,
-        history,
-        gameOver,
-        difficulty,
-        move,
-        restart,
-        undo,
-        setDifficulty
-    };
+  const undo = () => {
+    if (history.length === 0) return;
+    const [prev, ...rest] = history;
+    setGrid(prev);
+    setHistory(rest);
+    setGameOver(false); // can revive game if it was over
+  };
+
+  const setDifficulty = (mode: string) => {
+    setDifficultyState(mode);
+    restart();
+  };
+
+  const continueGame = () => {
+    setHasWon(false);
+    setContinuedAfterWin(true);
+  };
+
+  return {
+    grid,
+    score,
+    highScore,
+    moves,
+    history,
+    gameOver,
+    hasWon,
+    difficulty,
+    move,
+    restart,
+    undo,
+    setDifficulty,
+    continueGame,
+    shouldShowWinModal: hasWon && !continuedAfterWin,
+    shouldShowGameOverModal: gameOver && !hasWon,
+  };
 }

@@ -25,7 +25,7 @@ const Tile: React.FC<TileProps> = ({ value, position, isHint, skinMode }) => {
           alt={value.toString()}
           onError={(e) => {
             // default skin (numbers)
-            (e.target as HTMLImageElement).style.display = "none";
+            (e.target as HTMLImageElement).replaceWith(value.toString());
           }}
         />
       );

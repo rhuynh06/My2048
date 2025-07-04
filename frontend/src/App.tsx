@@ -12,7 +12,7 @@ import Modal from "./components/Modal";
 import SettingsPanel from "./components/SettingsPanel";
 import UpdateList from "./components/UpdatesList";
 
-import "./App.css"
+import "./App.css";
 import styles from "./styles/App.module.css";
 
 function App() {
@@ -22,38 +22,38 @@ function App() {
     highScore,
     moves,
     gameOver,
+    difficulty,
     move,
     restart,
     undo,
-    difficulty,
     setDifficulty,
+    continueGame,
+    shouldShowWinModal,
+    shouldShowGameOverModal,
   } = useGameState();
 
   const { getHint, hint, loading: aiLoading } = useAI();
   const [skinMode, setSkinMode] = useLocalStorage("skinMode", "numbers");
   const [mods, setMods] = useLocalStorage("mods", {} as Record<string, boolean>);
   const [showSettings, setShowSettings] = useState(false);
-  
+
   useKeyboard(move);
 
   const toggleMod = (modName: string) => {
-    setMods(prev => ({
+    setMods((prev) => ({
       ...prev,
       [modName]: !prev[modName],
     }));
   };
-
-  useEffect(() => {
-    if (gameOver) alert("Game Over!");
-  }, [gameOver]);
 
   const handleHintClick = () => {
     getHint(grid, difficulty);
   };
 
   useEffect(() => {
+    // Preload skin images
     const values = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048];
-    values.forEach(v => {
+    values.forEach((v) => {
       const img = new Image();
       img.src = `/skins/${skinMode}/${v}.png`;
     });
@@ -79,6 +79,7 @@ function App() {
         </div>
       </div>
 
+      {/* SETTINGS MODAL */}
       <Modal show={showSettings} onClose={() => setShowSettings(false)} title="Settings">
         <SettingsPanel
           difficulty={difficulty}
@@ -90,11 +91,36 @@ function App() {
         />
       </Modal>
 
+       {/* WIN MODAL */}
+      <Modal
+        show={shouldShowWinModal}
+        onClose={() => continueGame()}
+        title="You Win!"
+      >
+        <p>Congratulations, you reached 2048!</p>
+        <div style={{ display: "flex", justifyContent: "space-around", marginTop: 20 }}>
+          <button onClick={restart}>New Game</button>
+          <button onClick={continueGame}>Keep Playing</button>
+        </div>
+      </Modal>
+
+       {/* LOSE MODAL */}
+      <Modal
+        show={shouldShowGameOverModal}
+        onClose={restart}
+        title="Game Over"
+      >
+        <p>No more moves available. Try again?</p>
+        <div style={{ marginTop: 20 }}>
+          <button onClick={restart}>Restart</button>
+        </div>
+      </Modal>
+
       <ScoreBoard score={score} highScore={highScore} moves={moves} />
-      
+
       <GameBoard grid={grid} hint={hint} skinMode={skinMode} />
 
-      <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
+      <div style={{ display: "flex", justifyContent: "center", marginTop: 20, gap: 12 }}>
         <GameControls onRestart={restart} onUndo={undo} undoDisabled={gameOver} />
 
         <HintButton

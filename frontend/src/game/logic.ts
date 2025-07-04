@@ -117,3 +117,7 @@ export function isGameOver(grid: Grid): boolean {
 
     return true;
 }
+
+export function getMaxTile(grid: Grid): number {
+  return Math.max(...grid.flat());
+}
