@@ -41,3 +41,14 @@
   font-weight: bold;
   color: #776e65;
 }
+
+.label {
+  font-size: 50%;
+  line-height: 1.2;
+  text-align: center;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-width: 100%;
+  padding: 0.25rem;
+}

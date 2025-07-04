@@ -11,7 +11,7 @@ interface SettingsPanelProps {
 }
 
 const difficulties = ["easy", "medium", "hard", "normal"];
-const modList = ["bomb", "combo", "chain", "undo", "delete", "frozen", "quantum"];
+const modList = ["bomb", "combo", "chain", "delete", "frozen", "quantum"];
 const skinOptions = [
   {
     value: "numbers",
@@ -97,8 +97,10 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
         ))}
       </div>
 
+      {/* TO BE ADDED... */}
       <div style={{ marginTop: 10 }}>
-        <strong>Mods:</strong>
+        {/* <strong>Mods:</strong> */}
+        <strong>TO BE ADDED</strong>
         {modList.map((mod) => (
           <div key={mod}>
             <label>
