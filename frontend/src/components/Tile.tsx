@@ -5,10 +5,35 @@ interface TileProps {
   value: number;
   position: { row: number; col: number };
   isHint?: boolean;
+  skinMode: string;
 }
 
-const Tile: React.FC<TileProps> = ({ value, position, isHint }) => {
-  const tileClass = value === 0 ? styles.empty : styles[`tile${value}`] || styles.tileDefault;
+const Tile: React.FC<TileProps> = ({ value, position, isHint, skinMode }) => {
+  const tileClass =
+    value === 0 ? styles.empty : styles[`tile-${value}`] || styles["tile-default"];
+
+  const isImageMode = skinMode !== "numbers";
+
+  const renderContent = () => {
+    if (value === 0) return "";
+
+    if (isImageMode) {
+      const src = `/2048/skins/${skinMode}/${value}.png`;
+      return (
+        <img
+          src={src}
+          alt={value.toString()}
+          onError={(e) => {
+            // default skin (numbers)
+            (e.target as HTMLImageElement).style.display = "none";
+          }}
+        />
+      );
+    }
+
+    return value;
+  };
+
   return (
     <div
       className={`${styles.tile} ${tileClass} ${isHint ? styles.hint : ""}`}
@@ -17,7 +42,7 @@ const Tile: React.FC<TileProps> = ({ value, position, isHint }) => {
         gridColumnStart: position.col + 1,
       }}
     >
-      {value !== 0 ? value : ""}
+      {renderContent()}
     </div>
   );
 };

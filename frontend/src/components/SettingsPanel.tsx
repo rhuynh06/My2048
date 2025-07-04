@@ -1,5 +1,5 @@
 // Toggles for skins, AI, mods, difficulty
-import React from "react";
+import styles from "../styles/SettingPanels.module.css";
 
 interface SettingsPanelProps {
   difficulty: string;
@@ -11,8 +11,49 @@ interface SettingsPanelProps {
 }
 
 const difficulties = ["easy", "medium", "hard", "normal"];
-const skins = ["numbers", "solo-leveling", "reincarned as a slime", "manwhas", "animes", "soccer players", "programming"]
 const modList = ["bomb", "combo", "chain", "undo", "delete", "frozen", "quantum"];
+const skinOptions = [
+  {
+    value: "numbers",
+    label: "Numbers",
+    preview: "128",
+  },
+  {
+    value: "solo-leveling",
+    label: "Solo Leveling",
+    preview: "/2048/skins/solo-leveling/128.png",
+  },
+  {
+    value: "slime",
+    label: "Reincarnated as a Slime",
+    preview: "/2048/skins/slime/128.png",
+  },
+  {
+    value: "programming",
+    label: "Programming Tools",
+    preview: "/2048/skins/programming/128.png",
+  },
+  {
+    value: "minecraft",
+    label: "Minecraft",
+    preview: "/2048/skins/minecraft/128.png",
+  },
+  {
+    value: "video-games",
+    label: "Video Games",
+    preview: "/2048/skins/video-games/128.png",
+  },
+  {
+    value: "board-games",
+    label: "Board Games",
+    preview: "/2048/skins/board-games/128.png",
+  },
+  {
+    value: "pokemon",
+    label: "Pokemon ",
+    preview: "/2048/skins/pokemon/128.png",
+  },
+];
 
 const SettingsPanel: React.FC<SettingsPanelProps> = ({
   difficulty,
@@ -35,15 +76,25 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
         </select>
       </div>
 
-      <div style={{ marginTop: 10 }}>
-        <label>Skin: </label>
-        <select value={skinMode} onChange={(e) => onSkinChange(e.target.value)}>
-          {skins.map((s) => (
-            <option key={s} value={s}>
-              {s}
-            </option>
-          ))}
-        </select>
+      <div className={styles.skinGrid}>
+        {skinOptions.map((option) => (
+          <div
+            key={option.value}
+            className={`${styles.skinCard} ${
+              skinMode === option.value ? styles.selected : ""
+            }`}
+            onClick={() => onSkinChange(option.value)}
+          >
+            <div className={styles.preview}>
+              {option.value === "numbers" ? (
+                <span className={styles.previewNumber}>{option.preview}</span>
+              ) : (
+                <img src={option.preview} alt={option.label} />
+              )}
+            </div>
+            <div className={styles.label}>{option.label}</div>
+          </div>
+        ))}
       </div>
 
       <div style={{ marginTop: 10 }}>

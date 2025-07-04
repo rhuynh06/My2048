@@ -6,9 +6,10 @@ import styles from "../styles/GameBoard.module.css";
 interface GameBoardProps {
   grid: Grid;
   hint?: Direction | null;
+  skinMode: string;
 }
 
-const GameBoard: React.FC<GameBoardProps> = ({ grid, hint }) => {
+const GameBoard: React.FC<GameBoardProps> = ({ grid, hint, skinMode }) => {
   const size = grid.length;
 
   const getHintPosition = (): { row: number; col: number } | null => {
@@ -55,6 +56,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ grid, hint }) => {
             value={value}
             position={{ row: i, col: j }}
             isHint={hintPos ? hintPos.row === i && hintPos.col === j : false}
+            skinMode={skinMode}
           />
         ))
       )}

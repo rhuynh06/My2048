@@ -2,11 +2,6 @@
 import styles from "../styles/UpdateList.module.css";
 
 const updates = [
-  "toggle solo leveling",
-  "toggle reincarnated as a slime",
-  "toggle soccer players",
-  "toggle programming tools & languages",
-  "more skins...",
   "difficulties (easy, med, hard, normal)",
   {
     title: "Mods",

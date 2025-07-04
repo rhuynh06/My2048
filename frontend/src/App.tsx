@@ -51,6 +51,14 @@ function App() {
     getHint(grid, difficulty);
   };
 
+  useEffect(() => {
+    const values = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048];
+    values.forEach(v => {
+      const img = new Image();
+      img.src = `/skins/${skinMode}/${v}.png`;
+    });
+  }, [skinMode]);
+
   return (
     <div style={{ maxWidth: 480, margin: "auto", textAlign: "center" }}>
       <h1 className={styles.title}>2048</h1>
@@ -84,7 +92,7 @@ function App() {
 
       <ScoreBoard score={score} highScore={highScore} moves={moves} />
       
-      <GameBoard grid={grid} hint={hint} />
+      <GameBoard grid={grid} hint={hint} skinMode={skinMode} />
 
       <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
         <GameControls onRestart={restart} onUndo={undo} undoDisabled={gameOver} />

@@ -1,0 +1,43 @@
+.skinGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 12px;
+  margin-top: 1rem;
+}
+
+.skinCard {
+  background: #f4f4f4;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  border: 2px solid transparent;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.skinCard:hover {
+  transform: scale(1.05);
+}
+
+.selected {
+  border-color: #8f7a66;
+}
+
+.preview {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.previewNumber {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #776e65;
+}
