@@ -1,5 +1,5 @@
 // Button that triggers AI hint
-import styles from "../styles/HintButton.module.css";
+import styles from "../styles/Button.module.css";
 
 interface HintButtonProps {
   onHint: () => void;
@@ -10,11 +10,11 @@ interface HintButtonProps {
 const HintButton: React.FC<HintButtonProps> = ({ onHint, disabled, loading }) => {
   return (
     <button
-      className={styles.hintButton}
+      className={`${styles.buttonBase} ${styles.hint}`}
       onClick={onHint}
       disabled={disabled || loading}
     >
-      {loading ? "Thinking..." : "Hint"}
+      {loading ? "Thinking..." : "Hint 💡"}
     </button>
   );
 };

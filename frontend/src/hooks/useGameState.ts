@@ -37,10 +37,22 @@ export function useGameState(): UserGameState {
   const [difficulty, setDifficultyState] = useState("normal");
 
   const move = (dir: Direction) => {
-    if (gameOver) return;
+    if (gameOver) {
+      console.log("Blocked: game is over");
+      return;
+    }
 
     const { newGrid, moved, scoreGained } = moveGrid(grid, dir);
-    if (!moved) return;
+    if (!moved) {
+      console.log("Blocked: move did not change grid");
+      return;
+    }
+
+    // Check max tile to trigger win
+    const maxTile = getMaxTile(newGrid);
+    if (!hasWon && maxTile >= 2048) {
+      setHasWon(true);
+    }
 
     const gridAfterNew = addRandomTile(newGrid);
     const newScore = score + scoreGained;
@@ -49,12 +61,6 @@ export function useGameState(): UserGameState {
     setGrid(gridAfterNew);
     setScore(newScore);
     setMoves((prev) => prev + 1);
-
-    // Check max tile to trigger win
-    const maxTile = getMaxTile(gridAfterNew);
-    if (!hasWon && maxTile >= 2048) {
-      setHasWon(true);
-    }
 
     // Check game over after move
     if (isGameOver(gridAfterNew)) {
@@ -66,6 +72,9 @@ export function useGameState(): UserGameState {
       setHighScore(newScore);
       localStorage.setItem("highscore", String(newScore));
     }
+
+    console.log("Moving in direction:", dir); // debug
+    console.table(grid);
   };
 
   const restart = () => {
@@ -83,7 +92,7 @@ export function useGameState(): UserGameState {
     const [prev, ...rest] = history;
     setGrid(prev);
     setHistory(rest);
-    setGameOver(false); // can revive game if it was over
+    setGameOver(false);
   };
 
   const setDifficulty = (mode: string) => {

@@ -8,7 +8,7 @@ interface TileProps {
   skinMode: string;
 }
 
-const Tile: React.FC<TileProps> = ({ value, position, isHint, skinMode }) => {
+const Tile: React.FC<TileProps> = ({ value, position, skinMode }) => {
   const tileClass =
     value === 0 ? styles.empty : styles[`tile-${value}`] || styles["tile-default"];
 
@@ -36,7 +36,7 @@ const Tile: React.FC<TileProps> = ({ value, position, isHint, skinMode }) => {
 
   return (
     <div
-      className={`${styles.tile} ${tileClass} ${isHint ? styles.hint : ""}`}
+      className={`${styles.tile} ${tileClass}`}
       style={{
         gridRowStart: position.row + 1,
         gridColumnStart: position.col + 1,

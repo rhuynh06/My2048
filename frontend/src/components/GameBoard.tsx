@@ -1,45 +1,15 @@
 // Main grid rendering + layout
 import Tile from "./Tile";
-import type { Grid, Direction } from "../game/logic";
+import type { Grid } from "../game/logic";
 import styles from "../styles/GameBoard.module.css";
 
 interface GameBoardProps {
   grid: Grid;
-  hint?: Direction | null;
   skinMode: string;
 }
 
-const GameBoard: React.FC<GameBoardProps> = ({ grid, hint, skinMode }) => {
+const GameBoard: React.FC<GameBoardProps> = ({ grid, skinMode }) => {
   const size = grid.length;
-
-  const getHintPosition = (): { row: number; col: number } | null => {
-    if (!hint) return null;
-
-    for (let i = 0; i < size; i++) {
-      for (let j = 0; j < size; j++) {
-        const val = grid[i][j];
-        if (val === 0) continue;
-
-        switch (hint) {
-          case "up":
-            if (i > 0 && grid[i - 1][j] === val) return { row: i, col: j };
-            break;
-          case "down":
-            if (i < size - 1 && grid[i + 1][j] === val) return { row: i, col: j };
-            break;
-          case "left":
-            if (j > 0 && grid[i][j - 1] === val) return { row: i, col: j };
-            break;
-          case "right":
-            if (j < size - 1 && grid[i][j + 1] === val) return { row: i, col: j };
-            break;
-        }
-      }
-    }
-    return null;
-  };
-
-  const hintPos = getHintPosition();
 
   return (
     <div
@@ -55,7 +25,6 @@ const GameBoard: React.FC<GameBoardProps> = ({ grid, hint, skinMode }) => {
             key={`${i}-${j}`}
             value={value}
             position={{ row: i, col: j }}
-            isHint={hintPos ? hintPos.row === i && hintPos.col === j : false}
             skinMode={skinMode}
           />
         ))

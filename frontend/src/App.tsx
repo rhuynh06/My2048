@@ -1,19 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useGameState } from "./hooks/useGameState";
 import { useKeyboard } from "./hooks/useKeyboard";
 import { useAI } from "./hooks/useAI";
 import { useLocalStorage } from "./hooks/useLocalStorage";
+import type { Direction } from "./game/logic";
 
 import GameBoard from "./components/GameBoard";
 import GameControls from "./components/GameControls";
-import HintButton from "./components/HintButton";
 import ScoreBoard from "./components/ScoreBoard";
 import Modal from "./components/Modal";
 import SettingsPanel from "./components/SettingsPanel";
+import HintButton from "./components/HintButton";
+import AutoplayToggle from "./components/AutoPlayToggle";
 import UpdateList from "./components/UpdatesList";
 
 import "./App.css";
 import styles from "./styles/App.module.css";
+import header from "../public/header.png";
 
 function App() {
   const {
@@ -32,13 +35,19 @@ function App() {
     shouldShowGameOverModal,
   } = useGameState();
 
-  const { getHint, hint, loading: aiLoading } = useAI();
+  const { getHint, hint, loading, getAutoMove } = useAI();
   const [skinMode, setSkinMode] = useLocalStorage("skinMode", "numbers");
   const [mods, setMods] = useLocalStorage("mods", {} as Record<string, boolean>);
   const [showSettings, setShowSettings] = useState(false);
+  const [visibleHint, setVisibleHint] = useState<Direction | null>(null);
+  const hintTimeoutRef = useRef<number | null>(null);
+  const [hintRequestId, setHintRequestId] = useState(0);
+  const [autoplay, setAutoplay] = useState(false);
+  const autoplayRef = useRef<number | null>(null);
 
   useKeyboard(move);
 
+  // Mods (TO BE ADDED)
   const toggleMod = (modName: string) => {
     setMods((prev) => ({
       ...prev,
@@ -46,22 +55,78 @@ function App() {
     }));
   };
 
+  // Hint
+  const arrowMap: Record<string, string> = {
+    w: '↑',
+    a: '←',
+    s: '↓',
+    d: '→',
+  };
+
   const handleHintClick = () => {
-    getHint(grid, difficulty);
+    getHint(grid);
+    setHintRequestId(prev => prev + 1); 
   };
 
   useEffect(() => {
-    // Preload skin images
+    if (!hint) return;
+
+    // Whenever hint changes or user requested hint again, reset visibleHint and timer
+    setVisibleHint(hint);
+
+    if (hintTimeoutRef.current) clearTimeout(hintTimeoutRef.current);
+
+    hintTimeoutRef.current = setTimeout(() => {
+      setVisibleHint(null);
+    }, 3000);
+
+    return () => {
+      if (hintTimeoutRef.current) clearTimeout(hintTimeoutRef.current);
+    };
+  }, [hint, hintRequestId]);
+
+  const toggleAutoplay = () => {
+    setAutoplay(prev => !prev);
+  };
+
+  // Autoplay
+  useEffect(() => {
+    if (autoplay && !gameOver) {
+      autoplayRef.current = setInterval(async () => {
+        const nextMove = await getAutoMove(grid);
+        console.log("AI autoplay move:", nextMove); // debug
+        if (nextMove) {
+          move(nextMove);
+        } else {
+          setAutoplay(false);
+          if (autoplayRef.current) clearInterval(autoplayRef.current);
+        }
+      }, 100);
+    } else {
+      if (autoplayRef.current) {
+        clearInterval(autoplayRef.current);
+        autoplayRef.current = null;
+      }
+    }
+
+    return () => {
+      if (autoplayRef.current) clearInterval(autoplayRef.current);
+    };
+  }, [autoplay, grid, gameOver, getAutoMove, move]);
+
+  // Preload Skins
+  useEffect(() => {
     const values = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048];
     values.forEach((v) => {
       const img = new Image();
-      img.src = `/skins/${skinMode}/${v}.png`;
+      img.src = `/2048/skins/${skinMode}/${v}.png`;
     });
   }, [skinMode]);
 
   return (
     <div style={{ maxWidth: 480, margin: "auto", textAlign: "center" }}>
-      <h1 className={styles.title}>2048</h1>
+      {/* <h1 className={styles.title}>2048</h1> */}
+      <img src={header} width="50%" ></img>
 
       {/* SETTINGS PANEL */}
       <div className={styles.topControls}>
@@ -118,18 +183,29 @@ function App() {
 
       <ScoreBoard score={score} highScore={highScore} moves={moves} />
 
-      <GameBoard grid={grid} hint={hint} skinMode={skinMode} />
+      <div>
+        <GameBoard grid={grid} skinMode={skinMode} />
+        {visibleHint && (
+          <div className={styles.hintArrow} aria-label={`Hint arrow pointing ${visibleHint}`}>
+            {arrowMap[visibleHint]}
+          </div>
+        )}
+      </div>
 
-      <div style={{ display: "flex", justifyContent: "center", marginTop: 20, gap: 12 }}>
+      <div style={{ display: "flex", justifyContent: "center", marginTop: 10 }}>
         <GameControls onRestart={restart} onUndo={undo} undoDisabled={gameOver} />
 
         <HintButton
           onHint={handleHintClick}
           disabled={difficulty !== "normal"}
-          loading={aiLoading}
+          loading={loading}
         />
 
-        {/* ADD TOOGLE AI IF MODE = REG */}
+        <AutoplayToggle
+          autoplay={autoplay}
+          onToggle={toggleAutoplay}
+          disabled={difficulty !== "normal"}
+        />
       </div>
     </div>
   );

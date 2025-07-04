@@ -1,0 +1,75 @@
+.buttonBase {
+  cursor: pointer;
+  user-select: none;
+  min-width: 110px;
+  height: 42px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-family: 'Inter', 'Roboto', sans-serif;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: 
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.buttonBase:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  box-shadow: none !important;
+}
+
+/* Restart / Undo - Primary buttons */
+.primary:nth-of-type(1) {
+  background-color: #2a3a8c; /* dull electric blue */
+  color: #eee;
+  box-shadow: none;
+}
+
+.primary:nth-of-type(1):hover:not(:disabled) {
+  background-color: #00bfff; /* neon electric blue */
+  color: #000;
+  box-shadow: 0 0 8px #00bfff, 0 0 15px #00bfff, 0 0 30px #00bfff;
+}
+
+.primary:nth-of-type(2) {
+  background-color: #60407a; /* dull deep purple */
+  color: #eee;
+  box-shadow: none;
+}
+
+.primary:nth-of-type(2):hover:not(:disabled) {
+  background-color: #bb00ff; /* neon purple */
+  color: #000;
+  box-shadow: 0 0 8px #cc00ff, 0 0 15px #cc00ff, 0 0 30px #bb00ff;
+}
+
+/* Hint */
+.hint {
+  background-color: #997500; /* dull amber */
+  color: #eee;
+  box-shadow: none;
+}
+
+.hint:hover:not(:disabled) {
+  background-color: #ffec00; /* neon yellow */
+  color: #000;
+  box-shadow: 0 0 8px #ffec00, 0 0 15px #ffec00, 0 0 30px #fff900;
+}
+
+/* Autoplay */
+.autoplay {
+  background-color: #703333; /* dull red */
+  color: #eee;
+  box-shadow: none;
+}
+
+.autoplay:hover:not(:disabled) {
+  background-color: #ff1a1a; /* neon red */
+  color: #000;
+  box-shadow: 0 0 8px #ff1a1a, 0 0 15px #ff1a1a, 0 0 30px #ff1a1a;
+}

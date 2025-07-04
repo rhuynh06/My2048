@@ -1,5 +1,5 @@
 // Buttons: restart, difficulty, toggles
-import styles from "../styles/GameControls.module.css";
+import styles from "../styles/Button.module.css";
 
 interface GameControlProps {
   onRestart: () => void;
@@ -14,13 +14,19 @@ const GameControls: React.FC<GameControlProps> = ({
 }) => {
   return (
     <div className={styles.controls}>
-      <button className={styles.button} onClick={onRestart}>New Game</button>
+      <button 
+        className={`${styles.buttonBase}
+        ${styles.primary}`}
+        onClick={onRestart}
+      >
+        New Game
+      </button>
       <button
-        className={styles.button}
+        className={`${styles.buttonBase} ${styles.primary}`}
         onClick={onUndo}
         disabled={undoDisabled}
       >
-        Undo
+        Undo ↩️
       </button>
     </div>
   );

@@ -109,8 +109,7 @@ export function isGameOver(grid: Grid): boolean {
             // Vertically
             if (i < size - 1 && grid[i][j] === grid[i + 1][j]) return false;
         }
-}
-
+    }
 
     return true;
 }

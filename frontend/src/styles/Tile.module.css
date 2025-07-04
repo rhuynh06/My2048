@@ -35,6 +35,11 @@
   user-select: none;
 }
 
+.hint {
+  box-shadow: 0 0 10px 2px #00bcd4;
+  outline: 2px dashed #00bcd4;
+}
+
 /* Default Number Skins */
 .tile-2 { background: #eee4da; color: #776e65; }
 .tile-4 { background: #ede0c8; color: #776e65; }
