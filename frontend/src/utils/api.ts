@@ -5,7 +5,7 @@ import { BACKEND_URL } from "../config";
 const site = BACKEND_URL;
 
 export async function getBestMoveFromAI(grid: Grid): Promise<string | null> {
-  const response = await fetch(site, {
+  const response = await fetch(`${site}/hint`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

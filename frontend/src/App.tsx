@@ -16,9 +16,7 @@ import UpdateList from "./components/UpdatesList";
 
 import "./App.css";
 import styles from "./styles/App.module.css";
-// import header1 from "/header1.png";
-// import header2 from "/header2.png";
-import header3 from "/header3.png";
+import header from "/header.png";
 
 function App() {
   const {
@@ -121,14 +119,14 @@ function App() {
     const values = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048];
     values.forEach((v) => {
       const img = new Image();
-      img.src = `/2048/skins/${skinMode}/${v}.png`;
+      img.src = `skins/${skinMode}/${v}.png`;
     });
   }, [skinMode]);
 
   return (
     <div style={{ maxWidth: 480, margin: "auto", textAlign: "center" }}>
-      {/* <h1 className={styles.title}>2048</h1> */}
-      <img src={header3} width="50%" ></img>
+      {/* <h1 className={styles.title}>My2048</h1> */}
+      <img src={header} width="100%" ></img>
 
       {/* SETTINGS PANEL */}
       <div className={styles.topControls}>
