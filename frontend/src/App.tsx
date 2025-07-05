@@ -16,7 +16,9 @@ import UpdateList from "./components/UpdatesList";
 
 import "./App.css";
 import styles from "./styles/App.module.css";
-import header from "/header.png";
+import header1 from "/header1.png";
+import header2 from "/header2.png";
+import header3 from "/header3.png";
 
 function App() {
   const {
@@ -126,7 +128,7 @@ function App() {
   return (
     <div style={{ maxWidth: 480, margin: "auto", textAlign: "center" }}>
       {/* <h1 className={styles.title}>2048</h1> */}
-      <img src={header} width="50%" ></img>
+      <img src={header3} width="50%" ></img>
 
       {/* SETTINGS PANEL */}
       <div className={styles.topControls}>
