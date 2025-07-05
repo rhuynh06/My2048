@@ -16,8 +16,8 @@ import UpdateList from "./components/UpdatesList";
 
 import "./App.css";
 import styles from "./styles/App.module.css";
-import header1 from "/header1.png";
-import header2 from "/header2.png";
+// import header1 from "/header1.png";
+// import header2 from "/header2.png";
 import header3 from "/header3.png";
 
 function App() {
