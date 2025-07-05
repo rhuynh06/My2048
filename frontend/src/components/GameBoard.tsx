@@ -1,11 +1,10 @@
 import Tile from "./Tile";
-import type { Grid, Direction } from "../game/logic";
+import type { Grid } from "../game/logic";
 import styles from "../styles/GameBoard.module.css";
 
 interface GameBoardProps {
   grid: Grid;
   skinMode: string;
-  hintDirection?: Direction | null;
 }
 
 const GameBoard: React.FC<GameBoardProps> = ({ grid, skinMode }) => {

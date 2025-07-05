@@ -4,15 +4,15 @@ import styles from "../styles/Button.module.css"
 interface AutoplayToggleProps {
   autoplay: boolean;
   onToggle: () => void;
-  disabled?: boolean
 }
 
-const AutoplayToggle: React.FC<AutoplayToggleProps> = ({ autoplay, onToggle, disabled }) => {
+const AutoplayToggle: React.FC<AutoplayToggleProps> = ({ autoplay, onToggle }) => {
   return (
     <button
       className={`${styles.buttonBase} ${styles.autoplay}`}
       onClick={onToggle}
-      disabled={disabled}>
+      // disabled={true}
+    >
       {autoplay ? "Stop Autoplay" : "Start Autoplay"}
     </button>
   );

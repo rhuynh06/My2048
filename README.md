@@ -35,7 +35,7 @@ cd 2048
 # --- Backend Setup ---
 cd backend
 pip install fastapi uvicorn numpy
-uvicorn main:app --reload  # Runs at http://localhost:5050
+uvicorn main:app --reload --port 5050 # Runs at http://localhost:5050
 
 # --- Frontend Setup (open a new terminal window/tab) ---
 cd ../frontend

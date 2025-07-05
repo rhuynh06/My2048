@@ -58,10 +58,10 @@ function App() {
 
   // Hint
   const arrowMap: Record<string, string> = {
-    w: '↑',
-    a: '←',
-    s: '↓',
-    d: '→',
+    up: '↑',
+    left: '←',
+    down: '↓',
+    right: '→',
   };
 
   const handleHintClick = () => {
@@ -86,11 +86,11 @@ function App() {
     };
   }, [hint, hintRequestId]);
 
+  // Autoplay
   const toggleAutoplay = () => {
     setAutoplay(prev => !prev);
   };
 
-  // Autoplay
   useEffect(() => {
     if (autoplay && !gameOver) {
       autoplayRef.current = setInterval(async () => {
@@ -204,14 +204,12 @@ function App() {
 
         <HintButton
           onHint={handleHintClick}
-          // disabled={difficulty !== "medium"}
           loading={loading}
         />
 
         <AutoplayToggle
           autoplay={autoplay}
           onToggle={toggleAutoplay}
-          // disabled={difficulty !== "medium"}
         />
       </div>
     </div>

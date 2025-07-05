@@ -1,8 +1,11 @@
 // Functions to call backend AI API
 import type { Grid } from "../game/logic";
+import { BACKEND_URL } from "../config";
+
+const site = BACKEND_URL;
 
 export async function getBestMoveFromAI(grid: Grid): Promise<string | null> {
-  const response = await fetch("http://localhost:5050/hint", {
+  const response = await fetch(site, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
