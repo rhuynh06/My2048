@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: "/2048/",
+  base: "/My2048/",
   build: {
     outDir: "../docs",
     emptyOutDir: true
