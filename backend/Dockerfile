@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 5050
 
-CMD ["python", "main.py"]
+CMD ["uvicorn main:app --reload --port 5050", "main.py"]
