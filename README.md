@@ -30,7 +30,7 @@ My2048 is a full-stack, AI-enhanced version of the classic 2048 game. Built with
 ```bash
 # Clone the repository
 git clone https://github.com/rhuynh06/My2048.git
-cd 2048
+cd My2048
 
 # --- Backend Setup ---
 cd backend
