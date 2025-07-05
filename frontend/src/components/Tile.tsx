@@ -18,7 +18,7 @@ const Tile: React.FC<TileProps> = ({ value, position, skinMode }) => {
     if (value === 0) return "";
 
     if (isImageMode) {
-      const src = `/2048/skins/${skinMode}/${value}.png`;
+      const src = `skins/${skinMode}/${value}.png`;
       return (
         <img
           src={src}
