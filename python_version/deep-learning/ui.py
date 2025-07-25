@@ -3,7 +3,7 @@ from tkinter import messagebox
 import numpy as np
 import threading
 import time
-import torch
+import torch # type: ignore (showing warning for some reason)
 
 from logic import init_grid, move, add_new, is_game_over
 from dqn_agent import DQNAgent
