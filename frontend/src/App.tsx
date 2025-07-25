@@ -101,7 +101,7 @@ function App() {
           setAutoplay(false);
           if (autoplayRef.current) clearInterval(autoplayRef.current);
         }
-      }, 100); // to increase speed (min: 10)
+      }, 500); // to increase speed (min: 10)
     } else {
       if (autoplayRef.current) {
         clearInterval(autoplayRef.current);
