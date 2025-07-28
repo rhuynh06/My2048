@@ -3,7 +3,7 @@ from tkinter import messagebox
 import numpy as np
 import threading
 import time
-import torch # type: ignore (showing warning for some reason)
+import torch
 
 from logic import init_grid, move, add_new, is_game_over
 from dqn_agent import DQNAgent
@@ -108,7 +108,7 @@ class Game2048UI:
     def show_hint(self):
         state = self.convert_grid_to_state(self.grid)
         action = self.agent.act(state)
-        move_dir = ['a', 'w', 'd', 's'][action]
+        move_dir = ['a', 'w', 'd', 's'][int(action)]
         self.status_label.config(text=f"AI Hint: Press '{move_dir.upper()}'")
 
     def toggle_auto_play(self):
@@ -126,7 +126,7 @@ class Game2048UI:
         while self.ai_running:
             state = self.convert_grid_to_state(self.grid)
             action = self.agent.act(state)
-            move_dir = ['a', 'w', 'd', 's'][action]
+            move_dir = ['a', 'w', 'd', 's'][int(action)]
 
             self.grid, moved, gained_score = move(self.grid, move_dir)
             if moved:
