@@ -21,7 +21,6 @@ My2048 is a full-stack, AI-enhanced version of the classic 2048 game. Built with
 - **Backend**: Python + FastAPI + NumPy  
 - **AI**: Expectimax tree search with heuristics  
 - **Storage**: LocalStorage (score, settings, skins)  
-- **API**: REST (AI hinting endpoint)
 
 ---
 
