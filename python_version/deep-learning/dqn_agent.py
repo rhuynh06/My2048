@@ -9,7 +9,7 @@ class DQN(nn.Module):
     def __init__(self):
         super().__init__()
         self.net = nn.Sequential(
-            nn.Linear(16, 128),
+            nn.Linear(256, 128),
             nn.ReLU(),
             nn.Linear(128, 128),
             nn.ReLU(),
@@ -26,8 +26,8 @@ class DQNAgent:
         self.target.load_state_dict(self.model.state_dict())
         self.memory = deque(maxlen=20000)
         self.optimizer = optim.Adam(self.model.parameters(), lr=0.001)
-        self.criterion = nn.MSELoss()
-        self.epsilon = 1.0
+        self.criterion = nn.SmoothL1Loss()
+        self.epsilon = 0.8
         self.gamma = 0.99
 
     def act(self, state):

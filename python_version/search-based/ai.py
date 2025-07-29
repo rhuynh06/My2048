@@ -64,17 +64,17 @@ def monotonicity(grid):
     return max(totals[0], totals[1]) + max(totals[2], totals[3])
 
 def heuristic(grid):
-    empty_weight = 270
-    max_weight = 1.0
-    smooth_weight = 0.1
-    mono_weight = 47
+    empty_weight = 300 # importance of empty tiles
+    max_weight = 5.0 # importance of biggest tile on board
+    smooth_weight = 0.3 # how similar neighboring tiles are
+    mono_weight = 50 # how consistently the tile values increase or decrease across rows and columns
 
     return (empty_weight * count_empty(grid) +
             max_weight * max_tile(grid) +
             smooth_weight * smoothness(grid) +
             mono_weight * monotonicity(grid))
 
-MAX_DEPTH = 3
+MAX_DEPTH = 3 # can increase for better results at cost of computation speed
 
 def expectimax(grid, depth, is_player_turn):
     if depth == 0:
@@ -126,7 +126,7 @@ def get_best_move(grid):
     return best_move
 
 
-# ---------- Terminal AI runner ----------
+# Terminal AI runner
 
 def run_ai_terminal():
     print("Starting AI automated 2048 in terminal...")
@@ -161,8 +161,59 @@ def run_ai_terminal():
             print("Move didn't change board - AI stopped.")
             break
 
-        time.sleep(0.5)  # pause so you can watch progress
+        # time.sleep(0.5)  # pause so you can watch progress
 
+# Run Simulations (for testing purposes)
+def run_single_game(verbose=False):
+    grid = init_grid(4, 4)
+    score = 0
+
+    while True:
+        if is_game_over(grid):
+            if verbose:
+                print("Game over!")
+            return np.max(grid) >= 2048, grid
+
+        move_dir = get_best_move(grid)
+        if move_dir is None:
+            if verbose:
+                print("No valid move.")
+            return np.max(grid) >= 2048, grid
+
+        grid, moved, gained = move(grid, move_dir)
+        if moved:
+            score += gained
+            add_new(grid)
+            if verbose:
+                print(f"Move: {move_dir}, Score: {score}")
+                print(grid)
+        else:
+            if verbose:
+                print("Move didn't change board.")
+            return np.max(grid) >= 2048, grid
+
+def run_simulations(n=100, save_path="./game_results.txt"):
+    count_2048 = 0
+
+    with open(save_path, "w") as f:
+        for i in range(n):
+            won, final_grid = run_single_game()
+
+            if won:
+                count_2048 += 1
+                f.write(f"Game {i + 1}: Reached 2048!\n")
+            else:
+                f.write(f"Game {i + 1}: Did NOT reach 2048\n")
+
+            f.write(np.array2string(final_grid))
+            f.write("\n\n")
+
+        f.write(f"\nOut of {n} games:\n")
+        f.write(f" - {count_2048} games reached 2048\n")
+        f.write(f" - Success rate: {count_2048 / n * 100:.2f}%\n")
+
+    print(f"Results saved to {save_path}")
 
 if __name__ == "__main__":
     run_ai_terminal()
+    # run_simulations() # for testing

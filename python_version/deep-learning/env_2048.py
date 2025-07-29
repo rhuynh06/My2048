@@ -14,7 +14,15 @@ class Game2048:
         return self.get_state()
 
     def get_state(self):
-        return np.log2(self.board + 1) / 11  # normalize to [0,1]
+        state = np.zeros((self.size, self.size, 16))  # 16 = max log2(2^16) tile
+        for i in range(self.size):
+            for j in range(self.size):
+                value = self.board[i][j]
+                if value != 0:
+                    log2_val = int(np.log2(value))
+                    state[i][j][log2_val] = 1
+        return state.flatten()
+
 
     def _add_tile(self):
         empty = list(zip(*np.where(self.board == 0)))
@@ -51,7 +59,7 @@ class Game2048:
             total_score += score
         moved = np.rot90(moved, direction)
         if np.array_equal(self.board, moved):
-            return self.get_state(), 0, self.is_game_over()
+            return self.get_state(), -1, self.is_game_over()
         self.board = moved
         self.score += total_score
         self._add_tile()
@@ -68,3 +76,6 @@ class Game2048:
                     return False
 
         return True
+    
+    def get_max_tile(self):
+        return int(self.board.max())
